@@ -1,0 +1,31 @@
+{
+  "name": "blueprint-nodejs-docker",
+  "version": "1.0.0",
+  "description": "[![CI](https://github.com/nicolabovolato/fastify-node-api/actions/workflows/ci.yaml/badge.svg)](https://github.com/nicolabovolato/fastify-node-api/actions/workflows/ci.yaml)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p tsconfig.json",
+    "start": "node build/index.js",
+    "start-ts": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlieshoff/blueprint-nodejs-docker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mlieshoff/blueprint-nodejs-docker/issues"
+  },
+  "homepage": "https://github.com/mlieshoff/blueprint-nodejs-docker#readme",
+  "dependencies": {
+    "fastify": "^5.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
