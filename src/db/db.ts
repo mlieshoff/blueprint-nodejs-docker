@@ -9,7 +9,7 @@ const sql = postgres({
     max: 20,
     idle_timeout: 20,
     max_lifetime: 60 * 30,
-    debug: true
+    debug: process.env.NODE_ENV !== 'production',
 })
 
 export default sql
