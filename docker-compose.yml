@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 services:
   db:
     image: postgres:15-alpine
@@ -8,11 +8,11 @@ services:
       POSTGRES_PASSWORD: pass
       POSTGRES_DB: database
     ports:
-      - '5432:5432'
+      - "5432:5432"
     networks:
       - blueprint-nodejs-docker-net
     volumes:
-        - ${PWD}/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ${PWD}/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   api:
     container_name: blueprint-nodejs-docker
@@ -29,7 +29,7 @@ services:
       POSTGRES_DB_HOST: blueprint-nodejs-docker-postgres-db
       FOLDER: /tmp
     ports:
-      - '8080:8080'
+      - "8080:8080"
     depends_on:
       - db
     networks:
