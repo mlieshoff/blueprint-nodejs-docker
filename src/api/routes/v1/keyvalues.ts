@@ -3,7 +3,7 @@ import {
     FastifyPluginAsyncTypebox,
 } from "@fastify/type-provider-typebox";
 
-import { IKeyValues } from "../../../useCases/keyvalues";
+import { IKeyValues } from "../../../usecases/keyvalues";
 
 const id = Type.String({ format: "uuid" });
 

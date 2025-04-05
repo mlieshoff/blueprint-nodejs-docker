@@ -6,7 +6,7 @@ import swagger from "@fastify/swagger";
 import { errorHandler } from "./utils/error";
 import apiRoutes from "./routes";
 
-import { IKeyValues } from "../useCases/keyvalues";
+import { IKeyValues } from "../usecases/keyvalues";
 
 export type Config = {
     port: number;
