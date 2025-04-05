@@ -1,41 +1,11 @@
-# Fastify Node API
+# Blueprint
 
-[![CI](https://github.com/nicolabovolato/fastify-node-api/actions/workflows/ci.yaml/badge.svg)](https://github.com/nicolabovolato/fastify-node-api/actions/workflows/ci.yaml)
+https://github.com/nicolabovolato/fastify-node-api
 
-Showcasing Fastify in a modern Node.js project.
+https://github.com/porsager/postgres
 
-![](thumbnail.png)
+https://medium.com/nsoft/building-and-running-nodejs-typescript-postgresql-application-with-docker-3878240a2f73
 
-### Run the app
+https://dev.to/duncanlew/build-a-nodejs-server-with-fastify-and-typescript-1l20
 
-- `docker compose up -d`
-- Visit [http://localhost/documentation](http://localhost/documentation)
-
-## Technologies
-
-### Environment
-
-- `Node.js`
-- `Typescript`
-- `SWC`
-- `pnpm`
-
-### Libraries
-
-- `Fastify`
-- `Pino`
-- `Typebox`
-- `Kysely`
-- `Paseto`
-- `BullMQ`
-- `Vitest`
-- `ESLint`
-
-### Services
-
-- `Postgres`
-- `Redis`
-
-### Putting it all together
-
-- `Docker`
+https://dev.to/dariansampare/setting-up-docker-typescript-node-hot-reloading-code-changes-in-a-running-container-2b2f

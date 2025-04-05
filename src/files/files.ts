@@ -1,4 +1,4 @@
-import Config from "../config";
+import Config from "../config/config";
 import {NoParamCallback} from "fs";
 
 class Files {

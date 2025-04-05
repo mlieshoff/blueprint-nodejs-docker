@@ -1,6 +1,6 @@
 import Fastify from 'fastify'
-import sql from './db'
-import KeyValues from './keyvalues'
+import sql from './db/db'
+import KeyValues from './service/keyvalues'
 import Files from "./files/files";
 
 const fastify = Fastify({logger: true});
