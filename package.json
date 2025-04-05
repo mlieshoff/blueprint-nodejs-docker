@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -p tsconfig.json",
     "start": "node build/index.js",
-    "start-ts": "ts-node src/index2.ts",
-    "dev": "nodemon src/index2.ts"
+    "start-ts": "ts-node src/index.ts",
+    "dev": "nodemon src/index.ts"
   },
   "repository": {
     "type": "git",

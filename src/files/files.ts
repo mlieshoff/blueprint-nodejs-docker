@@ -6,7 +6,7 @@ class Files {
     private fs = require('fs');
 
     public async write(filename: string, content: string): Promise<void> {
-        this.fs.writeFile(Config.folder + "/" + filename, content, function(err: NoParamCallback) {
+        this.fs.writeFile(Config.services.files.folder + "/" + filename, content, function(err: NoParamCallback) {
             if (err) {
                 return console.error(err);
             }
