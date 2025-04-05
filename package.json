@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -p tsconfig.json",
     "start": "node build/index.js",
-    "start-ts": "ts-node src/index.ts",
-    "dev": "nodemon src/index.ts"
+    "start-ts": "ts-node src/index2.ts",
+    "dev": "nodemon src/index2.ts"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,8 @@
   },
   "homepage": "https://github.com/mlieshoff/blueprint-nodejs-docker#readme",
   "dependencies": {
+    "@fastify/swagger": "^9.4.2",
+    "@fastify/swagger-ui": "^5.2.2",
     "@fastify/type-provider-typebox": "^5.1.0",
     "fastify": "^5.2.2",
     "postgres": "^3.4.5"

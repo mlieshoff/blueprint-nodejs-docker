@@ -1,6 +1,25 @@
 import sql from '../db/db'
+import {IKeyValuesService, KeyValue} from "../domain/keyvalue";
 
-class KeyValues {
+class KeyValuesDB implements IKeyValuesService {
+
+    async getAll(limit: number, offset: number) {
+        const keyValues = await sql`
+    select
+        id,
+        key,
+        value
+    from key_value
+  `
+        const keyValueArray: KeyValue[] = keyValues.map(row => ({
+            id: row.id,
+            key: row.key,
+            value: row.value
+        }));
+
+        return keyValueArray
+    }
+
 
     public async getKeyValues() {
         const keyValues = await sql`
@@ -25,4 +44,4 @@ class KeyValues {
     }
 }
 
-export default KeyValues;
+export default KeyValuesDB;
