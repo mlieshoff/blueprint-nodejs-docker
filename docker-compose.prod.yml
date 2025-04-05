@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  api:
+    container_name: blueprint-nodejs-docker
+    build: .
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: database
+      POSTGRES_DB_HOST: blueprint-nodejs-docker-postgres-db
+      FOLDER: /tmp
+    ports:
+      - "8080:8080"
+    volumes:
+      - /tmp:/tmp
