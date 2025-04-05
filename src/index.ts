@@ -1,8 +1,9 @@
 import Fastify from 'fastify'
 
-const fastify = Fastify();
+const fastify = Fastify({logger: true});
 
 fastify.get('/', async (request, reply) => {
+    fastify.log.info('Incoming request at /');
     return 'Hello there! 👋';
 })
 
