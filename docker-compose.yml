@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  api:
+    container_name: blueprint-nodejs-docker
+    build: .
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    ports:
+      - '8080:8080'

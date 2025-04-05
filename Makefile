@@ -1,8 +1,12 @@
+logs:
+	docker logs blueprint-nodejs-docker
+
 up:
-	echo "up"
+	docker-compose build
+	docker-compose up -d
 
 up-prod:
 	echo "up-prod"
 
 down:
-	echo "down"
+	docker-compose down

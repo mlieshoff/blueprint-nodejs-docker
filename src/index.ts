@@ -9,7 +9,7 @@ fastify.get('/', async (request, reply) => {
 
 const start = async () => {
     try {
-        await fastify.listen({ port: 8080 });
+        await fastify.listen({ port: 8080, host: '0.0.0.0' });
     } catch (err) {
         console.error(err);
         process.exit(1);
