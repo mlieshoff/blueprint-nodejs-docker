@@ -1,10 +1,18 @@
 import Fastify from 'fastify'
+import sql from './db'
+import KeyValues from './keyvalues'
+import keyvalues from "./keyvalues";
 
 const fastify = Fastify({logger: true});
 
+const keyValues = new KeyValues();
+
 fastify.get('/', async (request, reply) => {
     fastify.log.info('Incoming request at /');
-    return 'Hello there! 👋';
+    console.log('user= ' + sql.options.user)
+    await keyValues.insertKeyValue({key : sql.options.user, value: new Date().toISOString()})
+    const results = await keyValues.getKeyValues();
+    return 'Hello there! 👋\n' + JSON.stringify(results);
 })
 
 const start = async () => {

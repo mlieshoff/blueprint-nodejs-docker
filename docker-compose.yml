@@ -1,5 +1,19 @@
 version: '3.9'
 services:
+  db:
+    image: postgres:15-alpine
+    container_name: blueprint-nodejs-docker-postgres-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: database
+    ports:
+      - '5432:5432'
+    networks:
+      - blueprint-nodejs-docker-net
+    volumes:
+        - ${PWD}/init.sql:/docker-entrypoint-initdb.d/init.sql
+
   api:
     container_name: blueprint-nodejs-docker
     build: .
@@ -8,5 +22,18 @@ services:
         condition: on-failure
         delay: 5s
         max_attempts: 3
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: database
+      POSTGRES_DB_HOST: blueprint-nodejs-docker-postgres-db
     ports:
       - '8080:8080'
+    depends_on:
+      - db
+    networks:
+      - blueprint-nodejs-docker-net
+
+networks:
+  blueprint-nodejs-docker-net:
+    driver: bridge
