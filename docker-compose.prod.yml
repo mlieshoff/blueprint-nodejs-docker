@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  api:
+    container_name: blueprint-nodejs-docker
+    build: .
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    environment:
+      POSTGRES_DB_HOST: localhost
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      RABBITMQ_HOST: localhost
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
+      FOLDER: ${FOLDER}
+    ports:
+      - "8080:8080"
+    volumes:
+      - /tmp:/tmp
