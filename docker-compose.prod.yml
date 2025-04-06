@@ -15,7 +15,7 @@ services:
       POSTGRES_DB: database
       RABBITMQ_HOST: blueprint-nodejs-docker-rabbitmq-broker
       RABBITMQ_DEFAULT_USER: user
-      RABBITMQ_DEFAULT_PASSWORD: pass
+      RABBITMQ_DEFAULT_PASSWORD: foobar
       FOLDER: /tmp
     ports:
       - "8080:8080"

@@ -12,7 +12,7 @@ services:
     networks:
       - blueprint-nodejs-docker-net
     volumes:
-      - ${PWD}/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ${PWD}/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
   broker:
     image: rabbitmq:4.0-management-alpine
     container_name: blueprint-nodejs-docker-rabbitmq-broker
@@ -29,8 +29,8 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
-      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+      - ${PWD}/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ${PWD}/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
     networks:
       - blueprint-nodejs-docker-net
 
