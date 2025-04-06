@@ -3,7 +3,7 @@ import closeWithGrace from "close-with-grace";
 
 import { KeyValues } from "./usecases/keyvalues";
 import KeyValuesDB from "./services/keyvaluesdb";
-import Files from "./files/files";
+import Files from "./services/files/files";
 
 import { FastifyApi } from "./api";
 import { Producer } from "./services/broker/producer";

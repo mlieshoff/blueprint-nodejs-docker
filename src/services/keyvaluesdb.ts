@@ -1,4 +1,4 @@
-import sql from "../db/db";
+import sql from "./db/db";
 import { IKeyValuesService, KeyValue } from "../domain/keyvalue";
 
 class KeyValuesDB implements IKeyValuesService {

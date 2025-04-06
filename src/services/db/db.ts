@@ -1,5 +1,5 @@
 import postgres from "postgres";
-import Config from "../config/config";
+import Config from "../../config/config";
 
 const sql = postgres({
   host: Config.services.db.db_host,

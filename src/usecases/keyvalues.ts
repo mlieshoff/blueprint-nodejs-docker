@@ -1,8 +1,8 @@
 import { KeyValue, IKeyValuesService } from "../domain/keyvalue";
 import { Producer } from "../services/broker/producer";
-import Files from "../files/files";
+import Files from "../services/files/files";
 import mqConnection from "../services/broker";
-import sql from "../db/db";
+import sql from "../services/db/db";
 
 export type IKeyValues = {
   getAll: (limit: number, offset: number) => Promise<KeyValue[]>;
