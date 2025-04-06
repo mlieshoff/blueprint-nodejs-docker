@@ -22,10 +22,27 @@ const querystring = Type.Object({
   offset: Type.Number({ minimum: 0 }),
 });
 
-const params = Type.Object({ id });
+const key = Type.String();
+const value = Type.String();
+
+const params = Type.Object({ id, key, value });
 
 export default (useCase: IKeyValues): FastifyPluginAsyncTypebox =>
   async (fastify) => {
+    fastify.put(
+      "/",
+      {
+        schema: {
+          tags: ["todos"],
+          body: keyValueWithoutId,
+          response: { "2xx": keyValue },
+        },
+      },
+      async (req, _res) => {
+        return await useCase.write(req.body.key, req.body.value);
+      },
+    );
+
     fastify.get(
       "/",
       {
