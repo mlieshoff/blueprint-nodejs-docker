@@ -1,5 +1,5 @@
 import { KeyValue, IKeyValuesService } from "../domain/keyvalue";
-import {Producer} from "../services/broker/producer";
+import { Producer } from "../services/broker/producer";
 import Files from "../files/files";
 import mqConnection from "../services/broker";
 import sql from "../db/db";
@@ -9,7 +9,11 @@ export type IKeyValues = {
 };
 
 export class KeyValues implements IKeyValues {
-  constructor(private readonly service: IKeyValuesService, private readonly files: Files, private readonly  producer : Producer) {}
+  constructor(
+    private readonly service: IKeyValuesService,
+    private readonly files: Files,
+    private readonly producer: Producer,
+  ) {}
 
   async getAll(limit: number, offset: number) {
     console.log("Incoming request at /");
@@ -19,7 +23,7 @@ export class KeyValues implements IKeyValues {
     const newNotification = {
       title: "You have received new notification",
       description:
-          "You have received new incmoing notification from the producer service",
+        "You have received new incmoing notification from the producer service",
     };
     this.producer.sendNotification(newNotification);
 

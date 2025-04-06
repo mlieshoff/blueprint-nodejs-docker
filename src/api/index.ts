@@ -3,6 +3,7 @@ import swaggerUi from "@fastify/swagger-ui";
 import swagger from "@fastify/swagger";
 
 import { errorHandler } from "./utils/error";
+import { Logger } from "../services/logger";
 import apiRoutes from "./routes";
 
 import { IKeyValues } from "../usecases/keyvalues";
@@ -22,6 +23,7 @@ export class FastifyApi {
 
   constructor(
     private readonly config: Config,
+    private readonly logger: Logger,
     useCases: UseCases,
   ) {
     this.server = fastify({
@@ -51,7 +53,7 @@ export class FastifyApi {
     });
 
     if (this.config.openapi)
-      console.log(
+      this.logger.info(
         `SwaggerUI hosted at http://[::]:${this.config.port}/documentation`,
       );
   }

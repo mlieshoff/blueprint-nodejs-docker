@@ -1,5 +1,3 @@
-import {json} from "node:stream/consumers";
-
 export type DbConfig = {
   db_host: string;
   db_user: string;
@@ -25,17 +23,28 @@ export type BrokerConfig = {
   queue: string;
 };
 
+export type LogConfig = {
+  level: string;
+  version: string;
+};
+
 type Config = {
   services: {
+    logger: LogConfig;
     files: FilesConfig;
     db: DbConfig;
   };
   api: ApiConfig;
   broker: BrokerConfig;
+  gracefulShutdownTimeoutMs: number;
 };
 
 export default {
   services: {
+    logger: {
+      level: process.env.LOG_LEVEL || "debug",
+      version: "1.0.0",
+    },
     db: {
       db_host: process.env.POSTGRES_DB_HOST || "localhost",
       db_user: process.env.POSTGRES_USER || "postgres",
@@ -58,4 +67,5 @@ export default {
     password: process.env.RABBITMQ_PASSWORD || "",
     queue: "test",
   },
+  gracefulShutdownTimeoutMs: 30 * 1000,
 } satisfies Config;

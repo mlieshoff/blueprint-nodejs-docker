@@ -16,7 +16,7 @@ class RabbitMQConnection {
     try {
       console.log(`⌛️ Connecting to Rabbit-MQ Server`);
       this.connection = await client.connect(
-          `amqp://${Config.broker.user}:${Config.broker.password}@${Config.broker.host}:${Config.broker.port}`
+        `amqp://${Config.broker.user}:${Config.broker.password}@${Config.broker.host}:${Config.broker.port}`,
       );
 
       console.log(`✅ Rabbit MQ Connection is ready`);
@@ -44,30 +44,27 @@ class RabbitMQConnection {
   }
 
   async consume(handleIncomingNotification: HandlerCB) {
-
     await this.channel.assertQueue(Config.broker.queue, {
       durable: true,
     });
 
     this.channel.consume(
-        Config.broker.queue,
-        (msg) => {
-          {
-            if (!msg) {
-              return console.error(`Invalid incoming message`);
-            }
-            handleIncomingNotification(msg?.content?.toString());
-            this.channel.ack(msg);
-          }
-        },
+      Config.broker.queue,
+      (msg) => {
         {
-          noAck: false,
+          if (!msg) {
+            return console.error(`Invalid incoming message`);
+          }
+          handleIncomingNotification(msg?.content?.toString());
+          this.channel.ack(msg);
         }
+      },
+      {
+        noAck: false,
+      },
     );
-
   }
 }
-
 
 const mqConnection = new RabbitMQConnection();
 

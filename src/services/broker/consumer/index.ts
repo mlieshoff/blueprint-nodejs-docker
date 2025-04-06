@@ -1,27 +1,21 @@
 import mqConnection from "../index";
 
 export class Consumer {
+  public handleIncomingNotification = (msg: string) => {
+    try {
+      const parsedMessage = JSON.parse(msg);
 
-    public handleIncomingNotification = (msg: string) => {
-        try {
+      console.log(`Received Notification`, parsedMessage);
 
-            const parsedMessage = JSON.parse(msg);
+      // Implement your own notification flow
+    } catch (error) {
+      console.error(`Error While Parsing the message`);
+    }
+  };
 
-            console.log(`Received Notification`, parsedMessage);
+  public listen = async () => {
+    await mqConnection.connect();
 
-            // Implement your own notification flow
-
-        } catch (error) {
-            console.error(`Error While Parsing the message`);
-        }
-    };
-
-
-    public listen = async () => {
-
-        await mqConnection.connect();
-
-        await mqConnection.consume(this.handleIncomingNotification);
-    };
-
+    await mqConnection.consume(this.handleIncomingNotification);
+  };
 }
