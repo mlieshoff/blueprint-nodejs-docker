@@ -12,3 +12,12 @@ https://dev.to/dariansampare/setting-up-docker-typescript-node-hot-reloading-cod
 
 
 https://romandc.com/blog/2022/08/opinionated-docker-development-workflow-for-node.js-projects-part-1/
+
+
+
+
+docker run -it -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:4.0-management
+
+curl -u guest:guest localhost:15672/api/auth/hash_password/foobar
+
+curl -u guest:guest localhost:15672/api/whoami

@@ -1,3 +1,5 @@
+import {json} from "node:stream/consumers";
+
 export type DbConfig = {
   db_host: string;
   db_user: string;
@@ -15,12 +17,21 @@ export type ApiConfig = {
   openapi: boolean;
 };
 
+export type BrokerConfig = {
+  user: string;
+  password: string;
+  host: string;
+  port: number;
+  queue: string;
+};
+
 type Config = {
   services: {
     files: FilesConfig;
     db: DbConfig;
   };
   api: ApiConfig;
+  broker: BrokerConfig;
 };
 
 export default {
@@ -35,10 +46,16 @@ export default {
       folder: process.env.FOLDER || "/tmp/test",
     },
   },
-
   api: {
     host: "0.0.0.0",
     port: 8080,
     openapi: true,
+  },
+  broker: {
+    host: process.env.RABBITMQ_HOST || "0.0.0.0",
+    port: Number(process.env.RABBITMQ_PORT) || 5672,
+    user: process.env.RABBITMQ_USER || "",
+    password: process.env.RABBITMQ_PASSWORD || "",
+    queue: "test",
   },
 } satisfies Config;
