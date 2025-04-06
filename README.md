@@ -18,7 +18,6 @@ curl -u guest:guest localhost:15672/api/auth/hash_password/foobar
 
 curl -u guest:guest localhost:15672/api/whoami
 
-
 ## Code Formatting
 
-``npx prettier . --write``
+`npx prettier . --write`

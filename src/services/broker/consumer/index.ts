@@ -1,21 +1,27 @@
-import mqConnection from "../index";
+import { Logger } from "pino";
+import RabbitMQConnection from "../index";
 
 export class Consumer {
+  constructor(
+    private readonly logger: Logger,
+    private readonly mqConnection: RabbitMQConnection,
+  ) {}
+
   public handleIncomingNotification = (msg: string) => {
     try {
       const parsedMessage = JSON.parse(msg);
 
-      console.log(`Received Notification`, parsedMessage);
+      this.logger.debug(`Received Notification`, parsedMessage);
 
       // Implement your own notification flow
     } catch (error) {
-      console.error(`Error While Parsing the message`);
+      this.logger.error(`Error While Parsing the message`, error);
     }
   };
 
   public listen = async () => {
-    await mqConnection.connect();
+    await this.mqConnection.connect();
 
-    await mqConnection.consume(this.handleIncomingNotification);
+    await this.mqConnection.consume(this.handleIncomingNotification);
   };
 }

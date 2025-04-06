@@ -1,10 +1,13 @@
-import client, { ChannelModel, Channel, ConsumeMessage } from "amqplib";
+import client, { Channel, ChannelModel } from "amqplib";
 
 import Config from "../../config/config";
+import { Logger } from "pino";
 
 type HandlerCB = (msg: string) => any;
 
 class RabbitMQConnection {
+  constructor(private readonly logger: Logger) {}
+
   connection!: ChannelModel;
   channel!: Channel;
   private connected!: Boolean;
@@ -14,19 +17,18 @@ class RabbitMQConnection {
     else this.connected = true;
 
     try {
-      console.log(`⌛️ Connecting to Rabbit-MQ Server`);
+      this.logger.info(`⌛️ Connecting to Rabbit-MQ Server`);
       this.connection = await client.connect(
         `amqp://${Config.broker.user}:${Config.broker.password}@${Config.broker.host}:${Config.broker.port}`,
       );
 
-      console.log(`✅ Rabbit MQ Connection is ready`);
+      this.logger.info(`✅ Rabbit MQ Connection is ready`);
 
       this.channel = await this.connection.createChannel();
 
-      console.log(`🛸 Created RabbitMQ Channel successfully`);
+      this.logger.info(`🛸 Created RabbitMQ Channel successfully`);
     } catch (error) {
-      console.error(error);
-      console.error(`Not connected to MQ Server`);
+      this.logger.error(`Not connected to MQ Server`, error);
     }
   }
 
@@ -38,7 +40,7 @@ class RabbitMQConnection {
 
       this.channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
     } catch (error) {
-      console.error(error);
+      this.logger.error(error);
       throw error;
     }
   }
@@ -53,7 +55,7 @@ class RabbitMQConnection {
       (msg) => {
         {
           if (!msg) {
-            return console.error(`Invalid incoming message`);
+            return this.logger.error(`Invalid incoming message`);
           }
           handleIncomingNotification(msg?.content?.toString());
           this.channel.ack(msg);
@@ -65,7 +67,4 @@ class RabbitMQConnection {
     );
   }
 }
-
-const mqConnection = new RabbitMQConnection();
-
-export default mqConnection;
+export default RabbitMQConnection;

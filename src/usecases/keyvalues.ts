@@ -1,8 +1,9 @@
-import { KeyValue, IKeyValuesService } from "../domain/keyvalue";
+import { IKeyValuesService, KeyValue } from "../domain/keyvalue";
 import { Producer } from "../services/broker/producer";
 import Files from "../services/files/files";
-import mqConnection from "../services/broker";
+import RabbitMQConnection from "../services/broker";
 import sql from "../services/db/db";
+import { Logger } from "pino";
 
 export type IKeyValues = {
   getAll: (limit: number, offset: number) => Promise<KeyValue[]>;
@@ -10,16 +11,16 @@ export type IKeyValues = {
 
 export class KeyValues implements IKeyValues {
   constructor(
+    private readonly logger: Logger,
     private readonly service: IKeyValuesService,
     private readonly files: Files,
     private readonly producer: Producer,
   ) {}
 
   async getAll(limit: number, offset: number) {
-    console.log("Incoming request at /");
+    this.logger.debug("Incoming request at /");
 
     // send notification to broker
-    await mqConnection.connect();
     const newNotification = {
       title: "You have received new notification",
       description:

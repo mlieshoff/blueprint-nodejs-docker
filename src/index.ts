@@ -9,16 +9,19 @@ import { FastifyApi } from "./api";
 import { Producer } from "./services/broker/producer";
 import { Consumer } from "./services/broker/consumer";
 import { init, Logger } from "./services/logger";
+import RabbitMQConnection from "./services/broker";
 
 (async () => {
   const logger: Logger = init(Config.services.logger);
 
   const keyValueService = new KeyValuesDB();
-  const fileService = new Files();
-  const producer = new Producer();
+  const fileService = new Files(logger);
+  const mqConnection = new RabbitMQConnection(logger);
+  await mqConnection.connect();
+  const producer = new Producer(logger, mqConnection);
 
   const api = new FastifyApi(Config.api, logger, {
-    keyValues: new KeyValues(keyValueService, fileService, producer),
+    keyValues: new KeyValues(logger, keyValueService, fileService, producer),
   });
   await api.serve();
 
@@ -31,6 +34,6 @@ import { init, Logger } from "./services/logger";
     },
   );
 
-  const consumer = new Consumer();
+  const consumer = new Consumer(logger, mqConnection);
   await consumer.listen();
 })();

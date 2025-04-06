@@ -1,5 +1,6 @@
 import Config from "../../../config/config";
-import mqConnection from "../index";
+import RabbitMQConnection from "../index";
+import { Logger } from "pino";
 
 export type INotification = {
   title: string;
@@ -7,9 +8,14 @@ export type INotification = {
 };
 
 export class Producer {
-  public sendNotification = async (notification: INotification) => {
-    await mqConnection.sendToQueue(Config.broker.queue, notification);
+  constructor(
+    private readonly logger: Logger,
+    private readonly mqConnection: RabbitMQConnection,
+  ) {}
 
-    console.log(`Sent the notification to consumer`);
+  public sendNotification = async (notification: INotification) => {
+    await this.mqConnection.sendToQueue(Config.broker.queue, notification);
+
+    this.logger.debug(`Sent the notification to consumer`);
   };
 }
