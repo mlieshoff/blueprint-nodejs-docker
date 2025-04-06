@@ -4,9 +4,9 @@ services:
     image: postgres:15-alpine
     container_name: blueprint-nodejs-docker-postgres-db
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: database
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     networks:
@@ -33,7 +33,6 @@ services:
       - ${PWD}/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
     networks:
       - blueprint-nodejs-docker-net
-
   api:
     container_name: blueprint-nodejs-docker
     build: .
@@ -44,13 +43,13 @@ services:
         max_attempts: 3
     environment:
       POSTGRES_DB_HOST: blueprint-nodejs-docker-postgres-db
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: database
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
       RABBITMQ_HOST: blueprint-nodejs-docker-rabbitmq-broker
-      RABBITMQ_USER: user
-      RABBITMQ_PASSWORD: foobar
-      FOLDER: /tmp
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
+      FOLDER: ${FOLDER}
     ports:
       - "8080:8080"
     depends_on:
@@ -59,7 +58,7 @@ services:
     networks:
       - blueprint-nodejs-docker-net
     volumes:
-      - /tmp:/tmp
+      - ${FOLDER}:${FOLDER}
 
 networks:
   blueprint-nodejs-docker-net:

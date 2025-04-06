@@ -9,14 +9,14 @@ services:
         delay: 5s
         max_attempts: 3
     environment:
-      POSTGRES_DB_HOST: blueprint-nodejs-docker-postgres-db
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: database
-      RABBITMQ_HOST: blueprint-nodejs-docker-rabbitmq-broker
-      RABBITMQ_DEFAULT_USER: user
-      RABBITMQ_DEFAULT_PASSWORD: foobar
-      FOLDER: /tmp
+      POSTGRES_DB_HOST: localhost
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      RABBITMQ_HOST: localhost
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
+      FOLDER: ${FOLDER}
     ports:
       - "8080:8080"
     volumes:
